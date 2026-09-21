@@ -6,8 +6,9 @@ pipeline{
 
                     }
 
-        stage (test){
+        
          stages{
+            stage (test){
                 steps{
                     
                    sh "echo Branch name is : ${params.Branch}"
