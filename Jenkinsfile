@@ -7,12 +7,12 @@ pipeline{
                     }
 
         stages{
-            stage{
+            stage (test){
                 steps{
                     '''
                     echo "BRanch name is : ${params.Branch}"
                     echo Depolyment choice is : ${params.Deployment}
-                    
+
                     '''
 
                 }
