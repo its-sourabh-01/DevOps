@@ -15,6 +15,7 @@ pipeline{
                     sh "echo Deployment choice is : ${params.Deployment}"
                     
                 }
+            }
             stage (Build){
                 steps{
                     sh "ls -ltr"
@@ -30,6 +31,6 @@ pipeline{
                     sh "echo choice is dev"
                 }
             }
-    }
+    
 }
 }
