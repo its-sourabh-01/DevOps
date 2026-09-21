@@ -14,8 +14,21 @@ pipeline{
                    sh "echo Branch name is : ${params.Branch}"
                     sh "echo Deployment choice is : ${params.Deployment}"
                     
+                }
+            stage (Build){
+                steps{
+                    sh "ls -ltr"
+                    sh "sleep 5"
+            }
+         }
 
+            stage(select){
+                when{
+                    expression {params.Deployment == 'dev'}
+                }
+                steps{
+                    sh "echo choice is dev"
                 }
             }
-        }
+    }
 }
