@@ -10,8 +10,8 @@ pipeline{
             stage (test){
                 steps{
                     '''
-                    echo "BRanch name is : ${params.Branch}"
-                    echo Depolyment choice is : ${params.Deployment}
+                    echo "Branch name is : ${params.Branch}"
+                    echo "Deployment choice is : ${params.Deployment}"
 
                     '''
 
