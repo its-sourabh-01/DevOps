@@ -6,14 +6,13 @@ pipeline{
 
                     }
 
-        stages{
-            stage (test){
+        stage (test){
+         stages{
                 steps{
-                    '''
-                    echo "Branch name is : ${params.Branch}"
-                    echo "Deployment choice is : ${params.Deployment}"
-
-                    '''
+                    
+                   sh "echo Branch name is : ${params.Branch}"
+                    sh "echo Deployment choice is : ${params.Deployment}"
+                    
 
                 }
             }
