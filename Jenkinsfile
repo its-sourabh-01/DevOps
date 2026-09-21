@@ -8,7 +8,7 @@ pipeline{
 
         
          stages{
-            stage (test){
+            stage ("test"){
                 steps{
                     
                    sh "echo Branch name is : ${params.Branch}"
@@ -16,14 +16,14 @@ pipeline{
                     
                 }
             }
-            stage (Build){
+            stage ("Build"){
                 steps{
                     sh "ls -ltr"
                     sh "sleep 5"
             }
          }
 
-            stage(select){
+            stage("select"){
                 when{
                     expression {params.Deployment == 'dev'}
                 }
