@@ -1,18 +1,21 @@
+pipeline{
+        agent any
+        parameters {
+                    string defaultValue: 'main', description: 'Deployed the project', name: 'Branch'
+                    choice choices: ['dev ', 'prod', 'pre-prod', 'test'], description: 'Deployed project based on the choice', name: 'Deployment '
 
-pipeline  {
-    agent any
-    
-    stages{
-        stage(checkout){
-            steps{
-                sh 'ls -lrt'  
+                    }
+
+        stages{
+            stage{
+                steps{
+                    '''
+                    echo "BRanch name is : ${params.Branch}"
+                    echo Depolyment choice is : ${params.Deployment}
+                    
+                    '''
+
+                }
             }
         }
-
-        stage("test"){
-            steps{
-                echo "hello test is completed"
-            }
-        }
-    }
 }
