@@ -1,36 +1,57 @@
 pipeline{
-        agent any
-        parameters {
-                    string defaultValue: 'main', description: 'Deployed the project', name: 'Branch'
-                    choice choices: ['dev ', 'prod', 'pre-prod', 'test'], description: 'Deployed project based on the choice', name: 'Deployment '
-
-                    }
-
-        
-         stages{
-            stage ("test"){
-                steps{
-                    
-                   sh "echo Branch name is : ${params.Branch}"
-                    sh "echo Deployment choice is : ${params.Deployment}"
-                    
+    agent any 
+    environment {
+                  APP_name= " web-app"
+                  ENV = "production"
                 }
-            }
-            stage ("Build"){
-                steps{
-                    sh "ls -ltr"
-                    sh "sleep 5"
-            }
-         }
+    parameters {
+                  choice choices: ['dev', 'test', 'pre-prod', 'prod'], description: 'Deployment', name: 'ENV'
+                     }
+   stages{
+       stage ("Checkout Scm"){
+           steps{
+               checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'github-credentials', url: 'https://github.com/its-sourabh-01/DevOps.git']])
+           }
+       }
+       
+       stage ("test"){
+           steps{
+               when{
+                   branch 'main'
+                   sh "echo branch is main"
+               }
+               
+           }
+       }
+       
+       stage("build"){
+           steps{
+               sh 'ls -lrt'
+               echo "list out the all the files"
+           }
+       }
+       
+       stage ("completed the pipeline"){
+           steps{
+               sh "echo all the step is build "
+           }
+       }
+       
+       post {
 
-            stage("select"){
-                when{
-                    expression {params.Deployment == 'dev'}
-                }
-                steps{
-                    sh "echo choice is dev"
-                }
-            }
+    success {
+        echo 'Pipeline successful'
+    }
+
+    failure {
+        echo 'Pipeline failed'
+    }
+
+    always {
+        echo 'Pipeline completed'
+    }
     
-}
+    }
+   }
+    
 }
