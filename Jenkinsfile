@@ -15,11 +15,13 @@ pipeline{
        }
        
        stage ("test"){
-           steps{
+           
                when{
                    branch 'main'
-                   sh "echo branch is main"
+
                }
+               steps{
+                   sh "echo this is test stage"
                
            }
        }
@@ -37,7 +39,10 @@ pipeline{
            }
        }
        
-       post {
+    
+   
+
+   post {
 
     success {
         echo 'Pipeline successful'
@@ -52,6 +57,5 @@ pipeline{
     }
     
     }
-   }
-    
+   } 
 }
