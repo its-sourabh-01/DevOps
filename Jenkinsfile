@@ -2,7 +2,7 @@ pipeline{
     agent any 
     environment {
                   APP_name= " web-app"
-                  ENV = "production"
+                
                 }
     parameters {
                   choice choices: ['dev', 'test', 'pre-prod', 'prod'], description: 'Deployment', name: 'ENV'
@@ -18,11 +18,11 @@ pipeline{
            
                when{
                    branch 'main'
-
                }
                steps{
                    sh "echo this is test stage"
-               
+                   sh "echo the application name is ${APP_name}"
+               }
            }
        }
        
@@ -36,6 +36,7 @@ pipeline{
        stage ("completed the pipeline"){
            steps{
                sh "echo all the step is build "
+            
            }
        }
        
