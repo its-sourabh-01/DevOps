@@ -1,62 +1,61 @@
 pipeline{
     agent any 
-    environment {
-                  APP_name= " web-app"
-                
-                }
     parameters {
-                  choice choices: ['dev', 'test', 'pre-prod', 'prod'], description: 'Deployment', name: 'ENV'
-                     }
-   stages{
-       stage ("Checkout Scm"){
-           steps{
-               checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'github-credentials', url: 'https://github.com/its-sourabh-01/DevOps.git']])
-           }
-       }
-       
-       stage ("test"){
-           
-               when{
-                   branch 'main'
-               }
-               steps{
-                   sh "echo this is test stage"
-                   sh "echo the application name is ${APP_name}"
-               }
-           }
-       }
-       
-       stage("build"){
-           steps{
-               sh 'ls -lrt'
-               echo "list out the all the files"
-           }
-       }
-       
-       stage ("completed the pipeline"){
-           steps{
-               sh "echo all the step is build "
-            
-           }
-       }
-       
-   }
-   
+        choice (choices: ['dev','qa' ,'prod'] ,
+                description: "Deployment environment",
+                name: 'Env'  
+        )
+      environment {
+        APP_NAME= "web-app"
+      }
+    }
+    stages{
+        stage ("checkout scm"){
+            steps{
+                git branch : 'main' , url: 'https://github.com/its-sourabh-01/DevOps.git' ,
+                credentialsId: 'github-credentials'
+                echo "checkout the code from github"
 
-   post {
+            }
+        }
 
-    success {
-        echo 'Pipeline successful'
+
+        stage ("build"){
+            steps{
+                sh "echo this is build stage"
+                sh "echo the application name is ${APP_NAME}"
+            }
+           }
+
+        stage ("test"){
+            steps{
+                echo "Running tests"
+            }
+        }
+
+        stage ("Deploy"){
+            steps{
+                try {
+                    sh "echo deployment to ${ENV} environment"
+                }
+                catch (Exception e) {
+                    echo "Deployment failded due to ${e.getMessage()}"
+                }
+            }
+        }
     }
 
-    failure {
-        echo 'Pipeline failed'
-    }
+    post {
+        success {
+            echo "Pipeline successful"
+        }
 
-    always {
-        echo 'Pipeline completed'
+        failure {
+            echo "Pipeline failed"
+        }
+
+        always {
+            echo "Pipeline completed"
+        }
     }
-    
-    }
-   
 }
