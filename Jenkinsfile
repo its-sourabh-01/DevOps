@@ -6,8 +6,9 @@ pipeline{
                 name: 'Env'  
         )
       environment {
-        APP_NAME= "web-app"
-      }
+                APP_NAME = "web-app"
+                }
+
     }
     stages{
         stage ("checkout scm"){
@@ -34,13 +35,14 @@ pipeline{
         }
 
         stage ("Deploy"){
-            steps{
-                try {
+            try {
                     sh "echo deployment to ${ENV} environment"
                 }
                 catch (Exception e) {
                     echo "Deployment failded due to ${e.getMessage()}"
                 }
+            steps{
+                echo "Deploying the application to ${Env} environment"
             }
         }
     }
