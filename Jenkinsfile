@@ -36,7 +36,7 @@ pipeline{
 
         stage ("Deploy"){
             try {
-                    sh "echo deployment to ${ENV} environment"
+                    sh "echo deployment to ${Env} environment"
                 }
                 catch (Exception e) {
                     echo "Deployment failded due to ${e.getMessage()}"
