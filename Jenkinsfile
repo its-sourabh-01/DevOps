@@ -24,7 +24,7 @@ pipeline{
 
         stage ("build"){
             steps{
-                sh "echo this is build stage"
+                sh "echo this is build stage ${params.Env}"
                 sh "echo the application name is ${APP_NAME}"
             }
            }
@@ -55,6 +55,9 @@ pipeline{
     post {
         success {
             echo "Pipeline successful"
+            mail to: 'patilsourabh330@gmail.com',
+                 subject: "Build Success: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                 body: "The Jenkins pipeline succeeded.\nJob: ${env.JOB_NAME}\nBuild Number: ${env.BUILD_NUMBER}\nURL: ${env.BUILD_URL}"
         }
 
         failure {
