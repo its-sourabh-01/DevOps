@@ -51,7 +51,7 @@ pipeline{
             
         }
     }
-
+    }
     post {
         success {
             echo "Pipeline successful"
