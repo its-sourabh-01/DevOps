@@ -55,7 +55,7 @@ pipeline{
     post {
         success {
             echo "Pipeline successful"
-            mail to: 'patilsourabh330@gmail.com',
+            mail to: 'sourabhpatil00007@gmail.com',
                  subject: "Build Success: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
                  body: "The Jenkins pipeline succeeded.\nJob: ${env.JOB_NAME}\nBuild Number: ${env.BUILD_NUMBER}\nURL: ${env.BUILD_URL}"
         }
