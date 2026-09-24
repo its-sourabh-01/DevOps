@@ -38,7 +38,7 @@ pipeline{
         stage ("Deploy"){
             steps{
                 echo "Deploying the application to ${Env} environment"
-            }
+            
             script{
 
             try {
