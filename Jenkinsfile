@@ -5,6 +5,7 @@ pipeline{
                 description: "Deployment environment",
                 name: 'Env'  
         )
+
       environment {
                 APP_NAME = "web-app"
                 }
@@ -35,15 +36,19 @@ pipeline{
         }
 
         stage ("Deploy"){
+            steps{
+                echo "Deploying the application to ${Env} environment"
+            }
+            script{
+
             try {
                     sh "echo deployment to ${Env} environment"
                 }
                 catch (Exception e) {
                     echo "Deployment failded due to ${e.getMessage()}"
                 }
-            steps{
-                echo "Deploying the application to ${Env} environment"
             }
+            
         }
     }
 
