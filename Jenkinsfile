@@ -4,13 +4,13 @@ pipeline{
         choice (choices: ['dev','qa' ,'prod'] ,
                 description: "Deployment environment",
                 name: 'Env'  
-        )
+             )
+    }
 
       environment {
                 APP_NAME = "web-app"
                 }
 
-    }
     stages{
         stage ("checkout scm"){
             steps{
